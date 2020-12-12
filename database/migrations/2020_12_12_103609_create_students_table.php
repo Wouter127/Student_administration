@@ -24,6 +24,29 @@ class CreateStudentsTable extends Migration
             // Foreign key relation
             $table->foreign('programme_id')->references('id')->on('programmes')->onDelete('cascade')->onUpdate('cascade');
         });
+
+        DB::table('students')->insert(
+            [
+                [
+                    'programme_id' => 1,
+                    'student_number' => 1,
+                    'first_name' => 'Rik',
+                    'last_name' => 'Rikken'
+                ],
+                [
+                    'programme_id' => 1,
+                    'student_number' => 2,
+                    'first_name' => 'Jos',
+                    'last_name' => 'Jossen'
+                ],
+                [
+                    'programme_id' => 2,
+                    'student_number' => 1,
+                    'first_name' => 'Gert',
+                    'last_name' => 'Gerten'
+                ]
+            ]
+        );
     }
 
     /**

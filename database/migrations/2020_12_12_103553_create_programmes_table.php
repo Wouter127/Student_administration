@@ -18,6 +18,26 @@ class CreateProgrammesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        DB::table('programmes')->insert(
+            [
+                [
+                    'name' => 'IT Factory'
+                ],
+                [
+                    'name' => 'Office Management'
+                ],
+                [
+                    'name' => 'Business and Tourism'
+                ],
+                [
+                    'name' => 'Media and Communication'
+                ],
+                [
+                    'name' => 'People & Health'
+                ]
+            ]
+        );
     }
 
     /**

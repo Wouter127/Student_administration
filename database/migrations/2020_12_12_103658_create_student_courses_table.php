@@ -24,6 +24,26 @@ class CreateStudentCoursesTable extends Migration
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');
         });
+
+        DB::table('student_courses')->insert(
+            [
+                [
+                    'course_id' => 1,
+                    'student_id' => 1,
+                    'semester' => 1
+                ],
+                [
+                    'course_id' => 1,
+                    'student_id' => 2,
+                    'semester' => 1
+                ],
+                [
+                    'course_id' => 4,
+                    'student_id' => 3,
+                    'semester' => 2
+                ]
+            ]
+        );
     }
 
     /**

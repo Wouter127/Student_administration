@@ -55,5 +55,17 @@
     </div>
     {{ $courses->links() }}
 @endsection
+@section('script_after')
+    <script>
+        // submit form when leaving text field 'course_text_search'
+        $('#course_text_search').blur(function () {
+            $('#searchForm').submit();
+        });
+        // submit form when changing dropdown list 'programme_id'
+        $('#programme_id').change(function () {
+            $('#searchForm').submit();
+        });
+    </script>
+@endsection
 
 

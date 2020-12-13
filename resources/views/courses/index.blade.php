@@ -17,7 +17,7 @@
                     <option value="%">All programmes</option>
                     @foreach($programmes as $programme)
                         <option value="{{ $programme->id }}"
-                            {{ (request()->programme_id ==  $programme->id ? 'selected' : '') }}>{{ $programme->name }}</option>
+                            {{ (request()->programme_id == $programme->id ? 'selected' : '') }}>{{ $programme->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -30,7 +30,8 @@
 
     @if ($courses->count() == 0)
         <div class="alert alert-danger alert-dismissible fade show">
-            Can't find any course with your searching
+            Can't find any course with <b>'{{ request()->course_text_search }}'</b> in the programme <b>'{{ request()->programme_id }}'</b>
+
             <button type="button" class="close" data-dismiss="alert">
                 <span>&times;</span>
             </button>

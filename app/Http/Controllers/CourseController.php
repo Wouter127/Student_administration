@@ -14,7 +14,6 @@ class CourseController extends Controller
         //search
         $programme_id = $request->input('programme_id') ?? '%';
         $course_search_text = '%' . $request->input('course_text_search') . '%';
-
         $courses = Courses::with('programme')
             ->orderBy('name')
             ->where(function ($query) use ($course_search_text, $programme_id) {
@@ -29,7 +28,12 @@ class CourseController extends Controller
             ->appends(['course_text_search'=> $request->input('course_text_search'), 'programme_id' => $request->input('programme_id')]);
 
         $programmes = Programmes::orderBy('name')
-            ->get();
+            ->get()
+            ->transform(function ($item) {
+                $item->name = strtoupper($item->name);
+                unset($item->created_at, $item->updated_at);
+                return $item;
+            });
         $result = compact('courses','programmes');
         \Facades\App\Helpers\Json::dump($result);
         return view('courses.index', $result);

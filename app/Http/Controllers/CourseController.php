@@ -9,10 +9,27 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Courses::with('programme')->orderBy('name')->get();
-        $programmes = Programmes::orderBy('name')->get();
+        //search
+        $programme_id = $request->input('programme_id') ?? '%';
+        $course_search_text = '%' . $request->input('course_text_search') . '%';
+
+        $courses = Courses::with('programme')
+            ->orderBy('name')
+            ->where(function ($query) use ($course_search_text, $programme_id) {
+                $query->where('name', 'like', $course_search_text)
+                    ->where('programme_id', 'like', $programme_id);
+            })
+            ->orWhere(function ($query) use ($course_search_text, $programme_id) {
+                $query->where('description', 'like', $course_search_text)
+                    ->where('programme_id', 'like', $programme_id);
+            })
+            ->paginate(12)
+            ->appends(['course_text_search'=> $request->input('course_text_search'), 'programme_id' => $request->input('programme_id')]);
+
+        $programmes = Programmes::orderBy('name')
+            ->get();
         $result = compact('courses','programmes');
         \Facades\App\Helpers\Json::dump($result);
         return view('courses.index', $result);

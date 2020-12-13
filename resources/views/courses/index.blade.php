@@ -4,18 +4,20 @@
 
 @section('main')
     <h1>Courses</h1>
-
-    <form method="get" action="/course" id="searchForm">
+    {{ $courses->links() }}
+    <form method="get" action="/courses" id="searchForm">
         <div class="row">
             <div class="col-sm-6 mb-2">
-                <input type="text" class="form-control" name="artist" id="artist"
-                       value="" placeholder="Filter Artist Or Record">
+                <input type="text" class="form-control" name="course_text_search" id="course_text_search"
+                       value="{{ request()->course_text_search }}"
+                       placeholder="Filter course name or description">
             </div>
             <div class="col-sm-4 mb-2">
-                <select class="form-control" name="genre_id" id="genre_id">
+                <select class="form-control" name="programme_id" id="programme_id">
                     <option value="%">All programmes</option>
                     @foreach($programmes as $programme)
-                        <option value="{{ $programme->id }}">{{ $programme->name }}</option>
+                        <option value="{{ $programme->id }}"
+                            {{ (request()->programme_id ==  $programme->id ? 'selected' : '') }}>{{ $programme->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -25,6 +27,7 @@
         </div>
     </form>
     <hr>
+
     @if ($courses->count() == 0)
         <div class="alert alert-danger alert-dismissible fade show">
             Can't find any course with your searching
@@ -50,7 +53,7 @@
         </div>
         @endforeach
     </div>
-
+    {{ $courses->links() }}
 @endsection
 
 

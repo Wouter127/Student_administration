@@ -5,14 +5,23 @@
 @section('main')
     <h1>{{ $course->name }}</h1>
     <p>{{ $course->description }}</p>
-    <ul>List of students enrolled:
-{{--        @foreach($students as $student)--}}
-{{--            <li>--}}
-{{--                {{ $student->name }}--}}
-{{--            </li>--}}
-{{--        @endforeach--}}
-
-    </ul>
+    @if($course->studentcourses->count() != 0)
+        <p>List of students enrolled:</p>
+        <ul>
+            @foreach($course->studentcourses as $studentcourse)
+            <li>
+                {{ $studentcourse->student->first_name }} {{ $studentcourse->student->last_name }} (semester{{ $studentcourse->semester }})
+            </li>
+            @endforeach
+        </ul>
+    @else
+        <div class="alert alert-danger alert-dismissible fade show">
+            No students enrolled!
+            <button type="button" class="close" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+        </div>
+    @endif
 @endsection
 
 

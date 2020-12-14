@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Courses;
+use App\Course;
 use App\Helpers\Json;
-use App\Programmes;
-use App\StudentCourses;
-use App\Students;
+use App\Programme;
+use App\StudentCourse;
+use App\Student;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -16,7 +16,7 @@ class CourseController extends Controller
         //search
         $programme_id = $request->input('programme_id') ?? '%';
         $course_search_text = '%' . $request->input('course_text_search') . '%';
-        $courses = Courses::with('programme')
+        $courses = Course::with('programme')
             ->orderBy('name')
             ->where(function ($query) use ($course_search_text, $programme_id) {
                 $query->where('name', 'like', $course_search_text)
@@ -29,7 +29,7 @@ class CourseController extends Controller
             ->paginate(12)
             ->appends(['course_text_search'=> $request->input('course_text_search'), 'programme_id' => $request->input('programme_id')]);
 
-        $programmes = Programmes::orderBy('name')
+        $programmes = Programme::orderBy('name')
             ->get()
             ->transform(function ($item) {
                 $item->name = strtoupper($item->name);
@@ -43,7 +43,7 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        $course = Courses::with('student_courses')->with('student_courses.student')->get();
+        $course = Course::with('studentcourses')->with('studentcourses.student')->findOrFail($id);
         $result = compact('course');
         \Facades\App\Helpers\Json::dump($result);
         return view('courses.show', $result);  // Pass $result to the view

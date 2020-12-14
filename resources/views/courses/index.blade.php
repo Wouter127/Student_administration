@@ -47,9 +47,11 @@
                     <p class="card-text">{{ $course->description }}</p>
                     <a class="card-text text-uppercase" href="">{{ $course->programme->name }}</a>
                 </div>
+                @auth()
                 <div class="card-footer">
                     <a href="courses/{{ $course->id }}" class="btn btn-primary w-100">Manage students</a>
                 </div>
+                @endauth
             </div>
         </div>
         @endforeach

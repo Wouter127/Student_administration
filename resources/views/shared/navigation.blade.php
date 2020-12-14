@@ -13,6 +13,30 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/courses">Courses</a>
                 </li>
+                @auth()
+                    @if(auth()->user()->admin)
+                    <li class="nav-item">
+                        <a class="nav-link" href="/programmes">Programmes</a>
+                    </li>
+                        @endif
+                @endauth
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                @endguest
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#!" data-toggle="dropdown">
+                            {{ auth()->user()->name }} <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                        </div>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>

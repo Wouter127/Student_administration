@@ -37274,6 +37274,16 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+$(function () {
+  $('body').tooltip({
+    selector: '[data-toggle="tooltip"]',
+    html: true
+  }).on('click', '[data-toggle="tooltip"]', function () {
+    // hide tooltip when you click on it
+    $(this).tooltip('hide');
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

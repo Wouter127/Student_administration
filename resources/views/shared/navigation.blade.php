@@ -16,7 +16,7 @@
                 @auth()
                     @if(auth()->user()->admin)
                     <li class="nav-item">
-                        <a class="nav-link" href="/programmes">Programmes</a>
+                        <a class="nav-link" href="/admin/programmes">Programmes</a>
                     </li>
                         @endif
                 @endauth

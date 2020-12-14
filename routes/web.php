@@ -30,3 +30,11 @@ Route::middleware(['auth'])->prefix('courses/{id}')->group(function () {
     Route::get('/', 'CourseController@show');
 });
 
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::redirect('/', 'admin/programmes');
+    Route::resource('programmes', 'ProgrammeController');
+    Route::get('/', 'ProgrammeController@index');
+    Route::get('/{id}', 'ProgrammeController@show');
+    Route::get('/create', 'ProgrammeController@create');
+});

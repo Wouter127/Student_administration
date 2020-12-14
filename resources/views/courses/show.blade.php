@@ -1,13 +1,18 @@
-
-
 @extends('layouts.template')
 
 @section('title', 'Courses')
 
 @section('main')
-    <h1>Course</h1>
-    <p>You selected the course with id: {{ $id }}</p>
-    <p>List of students enrolled</p>
+    <h1>{{ $course->name }}</h1>
+    <p>{{ $course->description }}</p>
+    <ul>List of students enrolled:
+{{--        @foreach($students as $student)--}}
+{{--            <li>--}}
+{{--                {{ $student->name }}--}}
+{{--            </li>--}}
+{{--        @endforeach--}}
+
+    </ul>
 @endsection
 
 

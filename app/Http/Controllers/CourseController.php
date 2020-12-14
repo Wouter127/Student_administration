@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Courses;
 use App\Helpers\Json;
 use App\Programmes;
+use App\StudentCourses;
+use App\Students;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -41,6 +43,9 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        return view('courses.show', ['id' => $id]);
+        $course = Courses::with('student_courses')->with('student_courses.student')->get();
+        $result = compact('course');
+        \Facades\App\Helpers\Json::dump($result);
+        return view('courses.show', $result);  // Pass $result to the view
     }
 }

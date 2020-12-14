@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Programmes extends Model
+class Programme extends Model
 {
     public function students()
     {
-        return $this->hasMany('App\Students');
+        return $this->hasMany('App\Student');
     }
 
     public function courses()
     {
-        return $this->hasMany('App\Courses');
+        return $this->hasMany('App\Course');
     }
 }

@@ -48,4 +48,26 @@ class CourseController extends Controller
         \Facades\App\Helpers\Json::dump($result);
         return view('courses.show', $result);  // Pass $result to the view
     }
+
+    public function create()
+    {
+        $course = new Course();
+        $result = compact('course');
+        return view('admin.programmes.create', $result);
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|min:3|unique:programmes,name',
+            'description' => 'required|min:3|unique:programmes,description',
+            'programme_id' => 'required|min:3|unique:courses,programme_id'
+        ]);
+
+        $course = new Course();
+        $course->name = $request->name;
+        $course->save();
+        session()->flash('success', "The genre <b>$course->name</b> has been added");
+        return redirect('admin/programmes');
+    }
 }
